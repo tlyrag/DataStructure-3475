@@ -45,7 +45,7 @@ public class LinkedList<T>  implements MyListInterface<T>{
 	
 
 	@Override
-	public void add(int newPosition, T newEntry) throws Exception {
+	public void add(int newPosition, T newEntry) {
 		// TODO Auto-generated method stub
 		Node newNode = new Node(newEntry);
 		
@@ -53,12 +53,20 @@ public class LinkedList<T>  implements MyListInterface<T>{
 		Node previous = head;
 		Node curr = head.next;
 		
-		if(previous == null || curr ==null) {
-			throw new Exception(" Error ");
-		}
-		for(int i=0; i<newPosition;i++) {
+		if(newPosition>size) {
+			System.out.println("Unable to add into this poosition");
+		}  else{
 			
+			for(int i=0; i<newPosition;i++) {
+				previous = previous.next;
+				curr = curr.next;
+			}
+			
+			previous.next = newNode;
+			newNode.next = curr;
+			this.size++;
 		}
+	
 		
 	}
 
