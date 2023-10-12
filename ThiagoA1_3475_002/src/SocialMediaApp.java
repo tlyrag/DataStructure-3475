@@ -60,7 +60,7 @@ public class SocialMediaApp {
 					clearAllList();
 					break;
 				case 5:
-					
+					displayList();
 					break;
 				case 6:
 					searchForPerson();
@@ -286,7 +286,15 @@ public class SocialMediaApp {
 		Person searchP = new Person(key,key,key);
 		
 		System.out.println("***********************************");
-		if(appNameList.contains(searchP.name)!=-1 || appEmailList.contains(searchP.email)!=-1) {
+		int nameIndex = appNameList.contains(searchP.name);
+		int emailIndex = appNameList.contains(searchP.email);
+		if( nameIndex !=-1) {
+			searchP = appList.getEntry(nameIndex);
+			System.out.print(searchP);
+			System.out.println("***********************************");
+			return searchP;
+		}else if (emailIndex!=-1) {
+			searchP = appList.getEntry(nameIndex);
 			System.out.print(searchP);
 			System.out.println("***********************************");
 			return searchP;
@@ -322,10 +330,13 @@ public class SocialMediaApp {
 					
 					switch (userOption) {
 					case 1:
-						removeFriend(searchP);
+						addFriend(searchP);
+						DisplayMainMenu();
 						break;
 					case 2:
-						addFriend(searchP);
+						removeFriend(searchP);
+						DisplayMainMenu();
+						
 					default:
 						break;
 					}
@@ -356,7 +367,6 @@ public class SocialMediaApp {
 			System.out.println("Friend wasn't found in the list");
 			System.out.println("***********************************");
 		}
-		DisplayMainMenu();
 		
 	}
 	public static void addFriend(Person person) {
@@ -365,10 +375,22 @@ public class SocialMediaApp {
 		person.friendList.add(key);
 		
 		System.out.println("***********************************");
-		System.out.println(key +" was added into " + person.name + "Friends list");
+		System.out.println(key +" was added into " + person.name + " Friends list");
 		System.out.println("***********************************");
-		DisplayMainMenu();
+	}
+	
+	public static void displayList() {
+		if(!appList.isEmpty()) {
+			Object[] appArr = appList.toArray();
+			for(int i=0;i<appArr.length;i++) {
+				System.out.println(appArr[i]);
+			}
+		} else {
+			System.out.println("List is currently Empty");	
+		}
+	
 		
+		DisplayMainMenu();
 	}
 
 }

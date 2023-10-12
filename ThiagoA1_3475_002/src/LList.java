@@ -133,10 +133,11 @@ public class LList <T> implements ListInterface<T>{
 	public T[] toArray() {
 		// TODO Auto-generated method stub
 		T[] Array = (T[]) new Object[listSize];
+		
 		Node curr = head;
 		for(int i=0;i<this.listSize;i++) {
 			Array[i] = (T) curr.data;
-			curr = head.next;
+			curr = curr.next;
 		}
 		
 		return Array;
@@ -169,9 +170,9 @@ public class LList <T> implements ListInterface<T>{
 	@Override
 	public boolean isEmpty() {
 		if(this.listSize==0) 
-			return false;
-		else 
 			return true;
+		else 
+			return false;
 	}
 
 	/**
