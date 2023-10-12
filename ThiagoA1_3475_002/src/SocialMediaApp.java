@@ -3,6 +3,8 @@ public class SocialMediaApp {
 	
 	static Scanner input = new Scanner(System.in);
 	static LList<Person> appList =  new LList<Person>();
+	static LList<String> appNameList =  new LList<String>();
+	static LList<String> appEmailList =  new LList<String>();
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -41,46 +43,48 @@ public class SocialMediaApp {
 		try {
 			int choice =Integer.parseInt(input.nextLine()) ;
 			
-			if(!menuOptions.contains(choice)) {
+			if(menuOptions.contains(choice)==-1) {
 				throw new Exception();
-			} 
-			
-			switch (choice) {
-			case 1:
-				addPerson();
-				break;
-			case 2:
-				addPersonInPosition();
-				break;
-			case 3:
-				removePerson();
-				break;
-			case 4:
-				clearAllList();
-				break;
-			case 5:
-				//searchForPerson
-				break;
-			case 6:
-				//Add friend to person List
-				break;
-			case 7:
-				addPerson();
-				break;
-			case 8:
-				countList();
-				break;
-			case 9:
-				checkEmpty();
-				break;
-			case 10:
-				System.out.println("Quitting Application");
-				break;
-			
+			}  else {
+				switch (choice) {
+				case 1:
+					addPerson();
+					break;
+				case 2:
+					addPersonInPosition();
+					break;
+				case 3:
+					removePerson();
+					break;
+				case 4:
+					clearAllList();
+					break;
+				case 5:
+					
+					break;
+				case 6:
+					searchForPerson();
+					DisplayMainMenu();
 
-			default:
-				break;
+					break;
+				case 7:
+					addOrRemoveFriend();
+					break;
+				case 8:
+					countList();
+					break;
+				case 9:
+					checkEmpty();
+					break;
+				case 10:
+					System.out.println("Quitting Application");
+					break;
+				default:
+					break;
+				}
 			}
+			
+	
 		} catch (Exception e) {
 			System.out.println("Invalid Menu Option");
 			DisplayMainMenu();
@@ -98,11 +102,38 @@ public class SocialMediaApp {
 		String email = input.nextLine();
 		System.out.println("Please Enter Person Location");
 		String location = input.nextLine();
-		//System.out.println("Do you want to add a Friend List to this person? Enter Y or N" );
-		//String hasFriend = input.nextLine().toLowerCase();
+		
 		Person newPerson = new Person(name, email, location);
 		
+		System.out.println("Do you want to add a Friend List to this person? Enter Y or N" );
+		String userChoice = input.nextLine().toLowerCase();
+		
+		while(!userChoice.equals("y") && !userChoice.equals("n")) {
+			System.out.println("Please enter Y or N" );
+			userChoice = input.nextLine().toLowerCase();
+			
+			
+		}
+		
+		
+		while(userChoice.equals("y")) {
+			addFriend(newPerson);
+			System.out.println("Do you want to add a Friend List to this person? Enter Y or N" );
+			userChoice = input.nextLine().toLowerCase();
+			
+			while(!userChoice.equals("y") && !userChoice.equals("n")) {
+				System.out.println("Please enter Y or N" );
+				userChoice = input.nextLine().toLowerCase();
+				
+				
+			}
+		}
+		
+		
+		
 		appList.add(newPerson);
+		appNameList.add(newPerson.name);
+		appEmailList.add(newPerson.email);
 		
 		
 		System.out.println("***********************************");
@@ -139,6 +170,8 @@ public class SocialMediaApp {
 		System.out.println(person.name+" was removed from the list");
 		System.out.println("***********************************");
 		appList.remove(position);
+		appNameList.remove(position);
+		appEmailList.remove(position);
 		DisplayMainMenu();
 	}
 	
@@ -155,6 +188,8 @@ public class SocialMediaApp {
 				DisplayMainMenu();
 			} else if(answer.equals("y")) {
 				appList.clear();
+				appNameList.clear();
+				appEmailList.clear();
 				System.out.println("***********************************");
 				System.out.println("List Cleared");
 				System.out.println("***********************************");
@@ -181,7 +216,34 @@ public class SocialMediaApp {
 		//System.out.println("Do you want to add a Friend List to this person? Enter Y or N" );
 		//String hasFriend = input.nextLine().toLowerCase();
 		Person newPerson = new Person(name, email, location);
+		
+		
+		System.out.println("Do you want to add a Friend List to this person? Enter Y or N" );
+		String userChoice = input.nextLine().toLowerCase();
+		
+		while(!userChoice.equals("y") && !userChoice.equals("n")) {
+			System.out.println("Please enter Y or N" );
+			userChoice = input.nextLine().toLowerCase();
+			
+			
+		}
+		
+		
+		while(userChoice.equals("y")) {
+			addFriend(newPerson);
+			System.out.println("Do you want to add a Friend List to this person? Enter Y or N" );
+			userChoice = input.nextLine().toLowerCase();
+			
+			while(!userChoice.equals("y") && !userChoice.equals("n")) {
+				System.out.println("Please enter Y or N" );
+				userChoice = input.nextLine().toLowerCase();
+				
+				
+			}
+		}
 		appList.add(position,newPerson);
+		appNameList.add(position,newPerson.name);
+		appEmailList.add(position,newPerson.email);
 		System.out.println("***********************************");
 		System.out.println(newPerson.name + " Added to the App List at position " +position  );
 		System.out.println("***********************************");
@@ -213,6 +275,97 @@ public class SocialMediaApp {
 			System.out.println("List is not Empty");
 		}
 		
+		System.out.println("***********************************");
+		DisplayMainMenu();
+		
+	}
+	
+	public static Person searchForPerson() {
+		System.out.println("Please enter person name or email");
+		String key = input.nextLine();
+		Person searchP = new Person(key,key,key);
+		
+		System.out.println("***********************************");
+		if(appNameList.contains(searchP.name)!=-1 || appEmailList.contains(searchP.email)!=-1) {
+			System.out.print(searchP);
+			System.out.println("***********************************");
+			return searchP;
+		} else {
+			System.out.print(key + " was not found in the least of Person in this app");
+			System.out.println("***********************************");
+			return null;
+		}
+		
+	}
+	
+	public static void addOrRemoveFriend() {
+		Person searchP  = searchForPerson();
+		
+		if(searchP!=null) {
+			System.out.println("***********************************");
+			System.out.println("Do you want to remove or add a Friend?");
+			System.out.println("1. Add a Friend to List");
+			System.out.println("2. Remove a Friend from List");
+			System.out.println("3. Back to Main menu");
+			System.out.println("***********************************");
+			
+			LList<Integer> menuOptions = new LList<>();
+			for(int i =1;i<=3;i++) {
+				menuOptions.add(i);
+			}
+			try {
+				int userOption = Integer.parseInt(input.nextLine());
+				
+				if(menuOptions.contains(userOption) ==-1) {
+					throw new Exception();
+				} else {
+					
+					switch (userOption) {
+					case 1:
+						removeFriend(searchP);
+						break;
+					case 2:
+						addFriend(searchP);
+					default:
+						break;
+					}
+				}
+				
+			} catch (Exception e) {
+				System.out.println("Please enter a valid option");
+				addOrRemoveFriend();
+			}
+		} else {
+			DisplayMainMenu();
+		}
+	}
+	
+	public static void removeFriend(Person person) {
+		System.out.println("Please enter Friends Name");
+		String key = input.nextLine();
+		int index = person.friendList.contains(key);
+		
+		if(index!=-1) {
+			System.out.println("***********************************");
+			System.out.println(person.friendList.getEntry(index)+" was removed from "+person.name+ " Friends list");
+			System.out.println("***********************************");
+			person.friendList.remove(index);
+			
+		} else {
+			System.out.println("***********************************");
+			System.out.println("Friend wasn't found in the list");
+			System.out.println("***********************************");
+		}
+		DisplayMainMenu();
+		
+	}
+	public static void addFriend(Person person) {
+		System.out.println("Please enter Friends Name");
+		String key = input.nextLine();
+		person.friendList.add(key);
+		
+		System.out.println("***********************************");
+		System.out.println(key +" was added into " + person.name + "Friends list");
 		System.out.println("***********************************");
 		DisplayMainMenu();
 		
