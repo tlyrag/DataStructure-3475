@@ -17,13 +17,13 @@ public class SocialMediaApp {
 	 * @author tlyra
 	 * 
 	 * Display the main Menu and possible options
-	 * Treat any incorrect entry 
+	 * Treat any incorrect entry that isn't between 1 or 10
 	 * Call the proper method based on selected option
 	 * 
 	 * */
 	public static void DisplayMainMenu() {
 		LList<Integer> menuOptions = new LList<>();
-		for(int i =1;i<=9;i++) {
+		for(int i =1;i<=10;i++) {
 			menuOptions.add(i);
 		}
 		System.out.println("***********************************");
@@ -93,7 +93,12 @@ public class SocialMediaApp {
 	}
 	/**
 	 * @author tlyra
-	 * Prompt information about a person and add it to the list
+	 * Prompt information about a person.
+	 * The person Object is added to App List
+	 * The name of the person is added to Name List
+	 * The email of the person is added to Email List
+	 * Ask if friend should be added, and keep asking for it as long as Y is pressed.
+	 * After method end, calls DisplayMainMenu method so the program go back to main menu
 	 * */
 	public static void addPerson() {
 		System.out.println("Please Enter Person Name:");
@@ -118,7 +123,7 @@ public class SocialMediaApp {
 		
 		while(userChoice.equals("y")) {
 			addFriend(newPerson);
-			System.out.println("Do you want to add a Friend List to this person? Enter Y or N" );
+			System.out.println("Do you want to add another Friend? Enter Y or N" );
 			userChoice = input.nextLine().toLowerCase();
 			
 			while(!userChoice.equals("y") && !userChoice.equals("n")) {
@@ -287,7 +292,7 @@ public class SocialMediaApp {
 		
 		System.out.println("***********************************");
 		int nameIndex = appNameList.contains(searchP.name);
-		int emailIndex = appNameList.contains(searchP.email);
+		int emailIndex = appEmailList.contains(searchP.email);
 		if( nameIndex !=-1) {
 			searchP = appList.getEntry(nameIndex);
 			System.out.print(searchP);
@@ -299,7 +304,7 @@ public class SocialMediaApp {
 			System.out.println("***********************************");
 			return searchP;
 		} else {
-			System.out.print(key + " was not found in the least of Person in this app");
+			System.out.println(key + " was not found in the list of Persons in this app");
 			System.out.println("***********************************");
 			return null;
 		}
