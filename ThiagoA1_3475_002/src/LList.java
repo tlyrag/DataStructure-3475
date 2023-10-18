@@ -144,7 +144,7 @@ public class LList <T> implements ListInterface<T>{
 	}
 
 	@Override
-	public int contains(T anEntry) {
+	public boolean contains(T anEntry) {
 		Node curr = head;
 		int i = 0;
 		boolean found =false;
@@ -152,13 +152,13 @@ public class LList <T> implements ListInterface<T>{
 		while(!found && i<this.listSize) {
 			
 			if(curr.data.equals(anEntry)) {
-				return i;
+				return true;
 			}
 			i++;
 			curr=curr.next;
 			
 		}
-		return -1;
+		return false;
 	}
 
 	@Override

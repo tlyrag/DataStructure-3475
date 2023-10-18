@@ -8,7 +8,7 @@ public interface ListInterface<T> {
 	public void replace(int givenPosition, T newEntry);
 	public T getEntry(int givenPosition);
 	public T[] toArray();
-	public int contains(T anEntry);
+	public boolean contains(T anEntry);
 	public int getLength();
 	public boolean isEmpty();
 	

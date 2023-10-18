@@ -22,7 +22,20 @@ public class Person {
 		}
 		return friends.toString();
 	}
-
+	
+	@Override
+	public boolean equals(Object obj) {
+		
+		if(obj instanceof Person) {
+			Person compare = (Person)obj;
+			
+			if(compare.name.equals(this.name) || compare.email.equals(this.email)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 
 	@Override
 	public String toString() {
