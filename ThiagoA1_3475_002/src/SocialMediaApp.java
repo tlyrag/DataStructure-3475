@@ -456,6 +456,13 @@ public class SocialMediaApp {
 		String key = input.nextLine();
 		//int index = person.friendList.contains(key);
 		
+		if(person.friendList.contains(key)) {
+			System.out.println("***********************************");
+			int index = person.friendList.
+			System.out.println(person.friendList.getEntry(index)+" was removed from "+person.name+ " Friends list");
+			System.out.println("***********************************");
+			person.friendList.remove(index);
+		}
 		/*
 		if(index!=-1) {
 			System.out.println("***********************************");
