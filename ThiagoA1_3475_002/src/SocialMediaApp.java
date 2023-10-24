@@ -49,7 +49,7 @@ public class SocialMediaApp {
 		try {
 			int choice =Integer.parseInt(input.nextLine()) ;
 			
-			if(menuOptions.contains(choice)==-1) {
+			if(!menuOptions.contains(choice)) {
 				throw new Exception();
 		/// ------If user Choice Is OK Call the Method-----
 			}  else {
@@ -355,10 +355,14 @@ public class SocialMediaApp {
 		System.out.println("***********************************");
 		
 		// Get index in both list
-		int nameIndex = appNameList.contains(searchP.name);
-		int emailIndex = appEmailList.contains(searchP.email);
-		
-		
+		//int nameIndex = appNameList.contains(searchP.name);
+		//int emailIndex = appEmailList.contains(searchP.email);
+		if(appList.contains(searchP)) {
+			return searchP;
+		} else {
+			return null;
+		}
+		/*
 		if( nameIndex !=-1) {
 			searchP = appList.getEntry(nameIndex);
 			System.out.print(searchP);
@@ -374,7 +378,7 @@ public class SocialMediaApp {
 			System.out.println("***********************************");
 			return null;
 		}
-		
+		*/
 	}
 	
 	
@@ -408,7 +412,7 @@ public class SocialMediaApp {
 			try {
 				int userOption = Integer.parseInt(input.nextLine());
 				
-				if(menuOptions.contains(userOption) ==-1) {
+				if(!menuOptions.contains(userOption)) {
 					throw new Exception();
 				} else {
 		// --- Call the correct method based on user choice-----
@@ -450,8 +454,16 @@ public class SocialMediaApp {
 	public static void removeFriend(Person person) {
 		System.out.println("Please enter Friends Name");
 		String key = input.nextLine();
-		int index = person.friendList.contains(key);
+		//int index = person.friendList.contains(key);
 		
+		if(person.friendList.contains(key)) {
+			System.out.println("***********************************");
+			int index = person.friendList.
+			System.out.println(person.friendList.getEntry(index)+" was removed from "+person.name+ " Friends list");
+			System.out.println("***********************************");
+			person.friendList.remove(index);
+		}
+		/*
 		if(index!=-1) {
 			System.out.println("***********************************");
 			System.out.println(person.friendList.getEntry(index)+" was removed from "+person.name+ " Friends list");
@@ -463,6 +475,7 @@ public class SocialMediaApp {
 			System.out.println("Friend wasn't found in the list");
 			System.out.println("***********************************");
 		}
+		*/
 		
 	}
 	
