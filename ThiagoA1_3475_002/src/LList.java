@@ -4,6 +4,11 @@ public class LList <T> implements ListInterface<T>{
 	Node head;
 	int listSize =0;
 
+	/**
+	 * @author tlyra
+	 * 
+	 * @param Add a new Entry of any type to the end of the list.
+	 * */
 	@Override
 	public void add(T newEntry) {
 		// TODO Auto-generated method stub
@@ -27,6 +32,11 @@ public class LList <T> implements ListInterface<T>{
 		}
 	}
 
+	/**
+	 * @author tlyra
+	 * 
+	 * @param Add a new Entry of any type to a given position in the list
+	 * */
 	@Override
 	public void add(int newPosition, T newEntry) {
 		// TODO Auto-generated method stub
@@ -59,7 +69,11 @@ public class LList <T> implements ListInterface<T>{
 		
 	
 	}
-
+	/**
+	 * @author tlyra
+	 * 
+	 * @param Remove an Entry of any type in a given position of the list.
+	 * */
 	@Override
 	public void remove(int givenPosition) {
 		// TODO Auto-generated method stub
@@ -92,13 +106,22 @@ public class LList <T> implements ListInterface<T>{
 		return;
 	}
 
+	/**
+	 * @author tlyra
+	 * 
+	 * @param Clear the list
+	 * */
 	@Override
 	public void clear() {
 		// TODO Auto-generated method stub
 		this.head = null;
 		this.listSize=0;
 	}
-
+	/**
+	 * @author tlyra
+	 * 
+	 * @param Replace an entry in the list in a given position
+	 * */
 	@Override
 	public void replace(int givenPosition, T newEntry) {
 		// TODO Auto-generated method stub
@@ -119,6 +142,11 @@ public class LList <T> implements ListInterface<T>{
 		
 	}
 
+	/**
+	 * @author tlyra
+	 * 
+	 * @param Retrieves the entry of a list in a given position
+	 * */
 	@Override
 	public T getEntry(int givenPosition) {
 		Node curr = head;
@@ -128,7 +156,13 @@ public class LList <T> implements ListInterface<T>{
 		}
 		return (T) curr.data;
 	}
-
+	
+	
+	/**
+	 * @author tlyra
+	 * 
+	 * @param Transforms the list into an array
+	 * */
 	@Override
 	public T[] toArray() {
 		// TODO Auto-generated method stub
@@ -143,6 +177,13 @@ public class LList <T> implements ListInterface<T>{
 		return Array;
 	}
 
+	
+	/**
+	 * @author tlyra
+	 * 
+	 * @param Check if an entry exists, if it exists return the given position. 
+	 * Otherwise, returns -1
+	 * */
 	@Override
 	public int contains(T anEntry) {
 		Node curr = head;
@@ -161,6 +202,12 @@ public class LList <T> implements ListInterface<T>{
 		return -1;
 	}
 
+	
+	/**
+	 * @author tlyra
+	 * 
+	 * @param Returns the size of the list
+	 * */
 	@Override
 	public int getLength() {
 		// TODO Auto-generated method stub
@@ -188,6 +235,11 @@ public class LList <T> implements ListInterface<T>{
 		}
 	}
 	
+	/**
+	 * @author tlyra
+	 * 
+	 * @param Display the list
+	 * */
 	public void displayList() {
 		if(head!=null) {
 			displayList(head);

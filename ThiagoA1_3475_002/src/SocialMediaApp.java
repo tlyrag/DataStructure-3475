@@ -3,8 +3,7 @@ public class SocialMediaApp {
 	
 	static Scanner input = new Scanner(System.in);
 	static LList<Person> appList =  new LList<Person>();
-	static LList<String> appNameList =  new LList<String>();
-	static LList<String> appEmailList =  new LList<String>();
+
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -103,8 +102,6 @@ public class SocialMediaApp {
 	 * @param 
 	 * Prompt information about a person.
 	 * The person Object is added to App List
-	 * The name of the person is added to Name List
-	 * The email of the person is added to Email List
 	 * Ask if friend should be added, and keep asking for it as long as Y is pressed.
 	 * After method end, calls DisplayMainMenu method so the program go back to main menu
 	 * */
@@ -147,10 +144,9 @@ public class SocialMediaApp {
 		}
 		
 		
-		// --- Adding Person, name and email to all lists---
+		// --- Adding Person, name and email to list---
 		appList.add(newPerson);
-		appNameList.add(newPerson.name);
-		appEmailList.add(newPerson.email);
+
 		
 		// --- Printing Output and going back to main menu----
 		System.out.println("***********************************");
@@ -200,8 +196,6 @@ public class SocialMediaApp {
 		System.out.println(person.name+" was removed from the list");
 		System.out.println("***********************************");
 		appList.remove(position);
-		appNameList.remove(position);
-		appEmailList.remove(position);
 		DisplayMainMenu();
 	}
 	
@@ -226,8 +220,6 @@ public class SocialMediaApp {
 				DisplayMainMenu();
 			} else if(answer.equals("y")) {
 				appList.clear();
-				appNameList.clear();
-				appEmailList.clear();
 				System.out.println("***********************************");
 				System.out.println("List Cleared");
 				System.out.println("***********************************");
@@ -247,8 +239,6 @@ public class SocialMediaApp {
 	 * Prompt information about a person.
 	 * Call the GetInputListPosition method to validate the Position to be added
 	 * The person Object is added to App List in the correct position 
-	 * The name of the person is added to Name List in the correct position
-	 * The email of the person is added to Email List in the correct position
 	 * Ask if friend should be added, and keep asking for it as long as Y is pressed.
 	 * After method end, calls DisplayMainMenu method so the program go back to main menu
 	 * 
@@ -297,8 +287,6 @@ public class SocialMediaApp {
 		}
 		//--- Add data to Lists and prompt output---
 		appList.add(position,newPerson);
-		appNameList.add(position,newPerson.name);
-		appEmailList.add(position,newPerson.email);
 		System.out.println("***********************************");
 		System.out.println(newPerson.name + " Added to the App List at position " +position  );
 		System.out.println("***********************************");
@@ -344,7 +332,7 @@ public class SocialMediaApp {
 	 * @author tlyra
 	 * @param
 	 * Ask for user input
-	 * Search in both NameList and emailList for the person
+	 * Search for the person in appList
 	 * Return the Person if it is found in the list
 	 * Prompt proper output based on result
 	 * */
@@ -355,20 +343,16 @@ public class SocialMediaApp {
 		System.out.println("***********************************");
 		
 		// Get index in both list
-		int nameIndex = appNameList.contains(searchP.name);
-		int emailIndex = appEmailList.contains(searchP.email);
+		int personIndex = appList.contains(searchP);
+		//int emailIndex = appEmailList.contains(searchP.email);
 		
 		
-		if( nameIndex !=-1) {
-			searchP = appList.getEntry(nameIndex);
+		if( personIndex !=-1) {
+			searchP = appList.getEntry(personIndex);
 			System.out.print(searchP);
 			System.out.println("***********************************");
 			return searchP;
-		}else if (emailIndex!=-1) {
-			searchP = appList.getEntry(nameIndex);
-			System.out.print(searchP);
-			System.out.println("***********************************");
-			return searchP;
+		
 		} else {
 			System.out.println(key + " was not found in the list of Persons in this app");
 			System.out.println("***********************************");
@@ -450,7 +434,8 @@ public class SocialMediaApp {
 	public static void removeFriend(Person person) {
 		System.out.println("Please enter Friends Name");
 		String key = input.nextLine();
-		int index = person.friendList.contains(key);
+		Person friend = new Person(key);
+		int index = person.friendList.contains(friend);
 		
 		if(index!=-1) {
 			System.out.println("***********************************");
@@ -470,18 +455,24 @@ public class SocialMediaApp {
 	/**
 	 * @author tlyra
 	 * @param 
-	 * Prompts User to enter friend name
+	 * Prompts User to enter friend name,email and location
 	 * use the add method from linkedlist to add the Friends name into the list
 	 * Prompt confirming that the name was added
 	 * 
 	 * */
 	public static void addFriend(Person person) {
 		System.out.println("Please enter Friends Name");
-		String key = input.nextLine();
-		person.friendList.add(key);
+		String name = input.nextLine();
+		System.out.println("Please enter your friend's " + name+ " email");
+		String email = input.nextLine();
+		System.out.println("Please enter your friend's " + name+ " location");
+		String location = input.nextLine();
 		
+		Person friend = new Person(name,email,location);
+		
+		person.friendList.add(friend);
 		System.out.println("***********************************");
-		System.out.println(key +" was added into " + person.name + " Friends list");
+		System.out.println(name +" was added into " + person.name + " Friends list");
 		System.out.println("***********************************");
 	}
 	
